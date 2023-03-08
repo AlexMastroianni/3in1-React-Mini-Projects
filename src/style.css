@@ -3,3 +3,9 @@ body {
   background-color: rgb(76, 101, 84);
   height: 100vh;
 }
+
+.card-container {
+  padding-top: 20vh;
+  display: flex;
+  justify-content: center;
+}
