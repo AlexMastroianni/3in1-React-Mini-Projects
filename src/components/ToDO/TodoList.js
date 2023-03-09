@@ -1,7 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 
 function TodoList({ ToDo, toggleToDo }) {
-  const todoIteam = useRef();
   function handleToDoClick(ToDo) {
     toggleToDo(ToDo.id);
   }
@@ -10,7 +9,7 @@ function TodoList({ ToDo, toggleToDo }) {
     <div className="pb-5">
       <ul>
         {ToDo.map((ToDos) => (
-          <li ref={todoIteam} key={ToDos.id}>
+          <li key={ToDos.id}>
             {ToDos.name}
             <input
               type="checkbox"

@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const LOCAL_STORAGE_KEY = 'todo';
 
-function ToDoCard(props) {
+function ToDoCard() {
   const [ToDo, setToDo] = useState([]);
   const todoNameRef = useRef();
 
@@ -20,10 +20,8 @@ function ToDoCard(props) {
 
   function toggleToDo(id) {
     const newToDo = [...ToDo];
-    const ToDos = newToDo.find((ToDos) => ToDos.id === id);
-
-    ToDos.complete = !newToDo.complete;
-    setToDo(newToDo);
+    const todo = newToDo.find((todo) => todo.id === id);
+    setToDo(ToDo);
   }
 
   function handleAddTodo(e) {
@@ -33,6 +31,11 @@ function ToDoCard(props) {
       return [...prevTodo, { id: uuidv4(), name: name, complete: false }];
     });
     todoNameRef.current.value = null;
+  }
+
+  function handleClearToDo() {
+    const newToDo = ToDo.filter((ToDo) => !ToDo.complete);
+    setToDo(newToDo);
   }
 
   return (
@@ -45,7 +48,9 @@ function ToDoCard(props) {
           <button onClick={handleAddTodo} className="button mt-3">
             Add
           </button>
-          <button className="button mt-3 ml-3">Delete</button>
+          <button onClick={handleClearToDo} className="button mt-3 ml-3">
+            Delete
+          </button>
           <p className="pt-3">Uncompleted: {ToDo.length}</p>
         </div>
       </article>
