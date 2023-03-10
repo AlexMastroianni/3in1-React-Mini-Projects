@@ -8,6 +8,7 @@ const LOCAL_STORAGE_KEY = 'todo';
 function ToDoCard() {
   const [ToDo, setToDo] = useState([]);
   const todoNameRef = useRef();
+  console.log(ToDo);
 
   useEffect(() => {
     const storedToDos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -18,12 +19,6 @@ function ToDoCard() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(ToDo));
   }, [ToDo]);
 
-  function toggleToDo(id) {
-    const newToDo = [...ToDo];
-    const todo = newToDo.find((todo) => todo.id === id);
-    setToDo(ToDo);
-  }
-
   function handleAddTodo(e) {
     const name = todoNameRef.current.value;
     if (name === '') return;
@@ -31,6 +26,14 @@ function ToDoCard() {
       return [...prevTodo, { id: uuidv4(), name: name, complete: false }];
     });
     todoNameRef.current.value = null;
+    console.log(ToDo);
+  }
+
+  function toggleToDo(id) {
+    const newToDos = [...ToDo];
+    const todo = newToDos.find((todo) => todo.id === id);
+    todo.complete = !todo.complete;
+    setToDo(newToDos);
   }
 
   function handleClearToDo() {
@@ -42,7 +45,7 @@ function ToDoCard() {
     <div className="tile is-parent">
       <article className="tile is-child box">
         <p className="title">To Do List</p>
-        <div className="content">
+        <div className="content p-3">
           <TodoList ToDo={ToDo} toggleToDo={toggleToDo} />
           <input ref={todoNameRef} type="text" className="input is-primary" />
           <button onClick={handleAddTodo} className="button mt-3">
